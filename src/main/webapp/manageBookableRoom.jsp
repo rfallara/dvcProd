@@ -45,7 +45,7 @@
                             <select name="addResortId">
                                 <option value="0">---Resort---</option>
                                 <c:forEach var="resort" items="${sessionScope.resortArray}">
-                                    <option value=${resort.resortId}>${resort.resortName}</option>
+                                    <option value=${resort.resortId }>${resort.resortName}</option>
                                 </c:forEach>
                             </select></td>
                         <td><select name="addRoomTypeId">
