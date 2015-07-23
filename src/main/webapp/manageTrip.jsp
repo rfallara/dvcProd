@@ -76,7 +76,6 @@
                     <td></td>
                     </thead>
                     <tbody>
-                    	<c:out value="${sessionScope.tripArray}"></c:out>
                         <c:forEach var="myTrip" items="${sessionScope.tripArray}">
                             <tr>
                                 <td>${myTrip.bookedDate}</td>
