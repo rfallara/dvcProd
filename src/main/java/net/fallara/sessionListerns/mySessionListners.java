@@ -2,6 +2,10 @@ package net.fallara.sessionListerns;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -31,20 +35,24 @@ public class mySessionListners implements HttpSessionListener {
      */
     @Override
     public void sessionCreated(HttpSessionEvent arg0) {
-	System.out.println("A new session has been created - " + arg0.getSession().getId());
-
-	activeUsers++;
-
-	System.out.println("Active user count = " + activeUsers);
-
-	arg0.getSession().setMaxInactiveInterval(20 * 60);
+    
+	    String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+	    
+	    
+		System.out.println("[" + timestamp + "] " + "A new session has been created - " + arg0.getSession().getId());
 	
+		activeUsers++;
 	
+		System.out.println("Active user count = " + activeUsers);
 	
-	String state = new BigInteger(130, new SecureRandom()).toString(32);
-        arg0.getSession().setAttribute("state", state);
-	
-	//System.out.println(arg0.getSession().getAttribute("state"));
+		arg0.getSession().setMaxInactiveInterval(20 * 60);
+		
+		
+		
+		String state = new BigInteger(130, new SecureRandom()).toString(32);
+	        arg0.getSession().setAttribute("state", state);
+		
+		//System.out.println(arg0.getSession().getAttribute("state"));
 
     }
 
@@ -54,19 +62,21 @@ public class mySessionListners implements HttpSessionListener {
      */
     @Override
     public void sessionDestroyed(HttpSessionEvent arg0) {
-	System.out.println("A session has been detroyed - " + arg0.getSession().getId());
-
-	if (activeUsers > 0) {
-	    activeUsers--;
-	}
-
-	System.out.println("Active user count = " + activeUsers);
-
-	if (activeUsers == 0) {
-	    System.out.println("No more active sessions closing DB connection");
-	    DBManager dbm = (DBManager) arg0.getSession().getServletContext().getAttribute("dvcDBManager");
-	    dbm.closeConnection(false);
-	}
+    
+    	String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		System.out.println("[" + timestamp + "] " + "A session has been detroyed - " + arg0.getSession().getId());
+	
+		if (activeUsers > 0) {
+		    activeUsers--;
+		}
+	
+		System.out.println("Active user count = " + activeUsers);
+	
+		if (activeUsers == 0) {
+		    System.out.println("[" + timestamp + "] " + "No more active sessions closing DB connection");
+		    DBManager dbm = (DBManager) arg0.getSession().getServletContext().getAttribute("dvcDBManager");
+		    dbm.closeConnection(false);
+		}
 
     }
 
