@@ -27,8 +27,13 @@ public class DBManagerSetup implements ServletContextListener {
         String pwd = sc.getInitParameter("dbuserpwd");
         String cat = sc.getInitParameter("dbinitcat");
         
-        //Moved dbhost from web.xml to global context.xml
         String host = sc.getInitParameter("dbhost-dvc");
+        
+        if (host == null) {
+        	System.out.println("dbhost-dvc not available must be prod so using web.xml value");
+        	host = sc.getInitParameter("dbhost");
+        }
+        
         
         System.out.println("Current DB host - " + host);
 
