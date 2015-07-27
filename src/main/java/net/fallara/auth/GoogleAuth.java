@@ -238,18 +238,19 @@ public class GoogleAuth extends HttpServlet {
 	    DBManager dbm = (DBManager) getServletContext().getAttribute("dvcDBManager");
 
 	    try {
-		
-		myUser.setAccessLevel(DvcSqlOperations.getAccessLevelByEmail(dbm, gplusEmail));
-		
-		if ( myUser.getAccessLevel() == 7 ) {
-		    myUser.setAllOwnerList(DvcSqlOperations.getAllDvcOwner(dbm));
-		}
-		
-		myUser.setDvcOwner(DvcSqlOperations.getOwnerByEmail(dbm, gplusEmail));
-
-		myUser = updateLoggedInUserPoints(dbm, myUser);
+			
+			myUser.setAccessLevel(DvcSqlOperations.getAccessLevelByEmail(dbm, gplusEmail));
+			
+			if ( myUser.getAccessLevel() == 7 ) {
+			    myUser.setAllOwnerList(DvcSqlOperations.getAllDvcOwner(dbm));
+			}
+			
+			myUser.setDvcOwner(DvcSqlOperations.getOwnerByEmail(dbm, gplusEmail));
+	
+			myUser = updateLoggedInUserPoints(dbm, myUser);
 	    } catch (Exception ex) {
-		System.out.println(ex.getMessage());
+	    	System.out.println("Error getting user access level");
+	    	System.out.println(ex.getMessage());
 	    }
 
 	    if (myUser.getDvcOwner() != null) {

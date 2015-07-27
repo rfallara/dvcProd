@@ -107,5 +107,23 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>ubuntu-dev</id>
+			<build>
+			<finalName>dvc</finalName>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat7-maven-plugin</artifactId>
+						<configuration>
+							<url>http://192.168.1.173:8080/manager/text</url>
+							<server>ubuntu-dev</server>
+							<path>/dvcdev</path>
+						</configuration>
+					</plugin>
+				</plugins>		
+			</build>
+		</profile>
 	</profiles>
 </project>

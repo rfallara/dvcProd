@@ -4,7 +4,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-
 /**
  * Application Lifecycle Listener implementation class DBManagerSetup
  *
@@ -12,7 +11,7 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class DBManagerSetup implements ServletContextListener {
 
-    private DBManager dbm = null;
+	private DBManager dbm = null;
 
     /**
      * @param sce
@@ -27,7 +26,11 @@ public class DBManagerSetup implements ServletContextListener {
         String uid = sc.getInitParameter("dbuserid");
         String pwd = sc.getInitParameter("dbuserpwd");
         String cat = sc.getInitParameter("dbinitcat");
-        String host = sc.getInitParameter("dbhost");
+        
+        //Moved dbhost from web.xml to global context.xml
+        String host = sc.getInitParameter("dbhost-dvc");
+        
+        System.out.println("Current DB host - " + host);
 
         if (uid != null && pwd != null && cat != null && host != null) {
             //set the scb for mySQL
