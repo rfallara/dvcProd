@@ -51,20 +51,7 @@ public class Logout extends HttpServlet {
 		}
     	log.debug("User Logged Out." + myUser.getGplusEmail());
         request.getSession().invalidate();
-        response.getWriter().print("<html>"
-        		+ "<head>"
-        		+ "<meta http-equiv='Content-Type' content='text/html; charset=US-ASCII'>"
-        		+ "<title>DVC Vacation Points Management</title>"
-        		+ "</head>"
-        		+ "<body>"
-        		+ "<div style='margin: 50px'>"
-        		+ "<div style='text-align: center;'>"
-        		+ "<H1>You have been logged out of the DVC Vacation Points Management System</H1>"
-        		+ "<br>"
-        		+ "</div>"
-        		+ "</div>"
-        		+ "</body>"
-        		+ "</html>");
+        response.sendRedirect("index.jsp");
         
     }
 
