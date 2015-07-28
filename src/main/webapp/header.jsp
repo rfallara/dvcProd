@@ -12,7 +12,7 @@
 
     <div class="ui-widget ui-widget-header">
 
-	<H1>DVC Vacation Points Management <c:out value="${sessionScope.headerNameTag}"/></H1>
+	<H1>DVC Vacation Points Management <span style="color: red;"><c:out value="${sessionScope.headerNameTag}"/></span></H1>
 
 	<table style="width: 100%">
 	    <tr>
@@ -41,6 +41,7 @@
                           data-scope="https://www.googleapis.com/auth/userinfo.email"
                           data-clientid="624350122436-f3h0e16docp6p0ivhstiq5r7oi0m5rf1.apps.googleusercontent.com"
                           data-redirecturi="postmessage" data-accesstype="offline"
+                          data-prompt="login"
                           data-cookiepolicy="single_host_origin"
                           data-callback="signInCallback"> </span>
                 </div> 
@@ -74,7 +75,7 @@
     <script type="text/javascript">
 	$(function () {
 
-	    $('#signinButton').hide();
+	    //$('#signinButton').hide();
 
 	    var mainMenuBar = $("#mainMenuBar");
 	    var menu = $("#menu");

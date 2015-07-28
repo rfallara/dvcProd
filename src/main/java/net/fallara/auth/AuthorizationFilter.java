@@ -50,7 +50,7 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse thisResponse = (HttpServletResponse) response;
 
         Boolean excludedPage = false;
-        String[] excludeList = {"/index.jsp", "/GoogleAuth.do", "googleAuth.js"};
+        String[] excludeList = {"/index.jsp", "/GoogleAuth.do", "googleAuth.js", "dvc.css"};
         String requestPath = thisRequest.getRequestURI();
 
         for (String ep : excludeList) {
@@ -60,7 +60,7 @@ public class AuthorizationFilter implements Filter {
         }
 
         if (excludedPage == false && thisRequest.getSession().getAttribute("token") == null) {
-        	log.debug("User is not logged in, redirecting");
+        	log.debug("User is not logged in, redirecting from " + requestPath + " Source=" + thisRequest.getRemoteAddr());
             thisResponse.sendRedirect("index.jsp");
         } else {
             chain.doFilter(request, response);

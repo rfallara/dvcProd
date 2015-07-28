@@ -51,7 +51,7 @@ public class Logout extends HttpServlet {
 		}
     	log.debug("User Logged Out." + myUser.getGplusEmail());
         request.getSession().invalidate();
-        response.sendRedirect("index.jsp");
+        //response.sendRedirect("index.jsp");
     }
 
 }
