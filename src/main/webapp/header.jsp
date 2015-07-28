@@ -12,7 +12,7 @@
 
     <div class="ui-widget ui-widget-header">
 
-	<H1>DVC Vacation Points Management</H1>
+	<H1>DVC Vacation Points Management <c:out value="${sessionScope.headerNameTag}"/></H1>
 
 	<table style="width: 100%">
 	    <tr>

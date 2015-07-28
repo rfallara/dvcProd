@@ -34,6 +34,13 @@ public class mySessionListners implements HttpSessionListener {
      */
     @Override
     public void sessionCreated(HttpSessionEvent arg0) {
+    	
+    	String hnt = arg0.getSession().getServletContext().getInitParameter("dev-dvc");
+    	
+    	if (hnt != null){
+        	System.out.println("THIS IS A DEVELOPMENT ENVIRONMENT - adding tag " + hnt);
+        	arg0.getSession().setAttribute("headerNameTag", hnt);
+        }
     
 	    String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 	    

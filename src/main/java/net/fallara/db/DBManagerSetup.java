@@ -48,6 +48,7 @@ public class DBManagerSetup implements ServletContextListener {
 
             //add dbm to session context
             sc.setAttribute("dvcDBManager", dbm);
+            
             System.out.println("dvcDBManager created and added to context");
         } else {
             System.out.println("DB connection details are incorrect in servlet context!");

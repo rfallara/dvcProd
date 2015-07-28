@@ -125,5 +125,23 @@
 				</plugins>		
 			</build>
 		</profile>
+		<profile>
+			<id>ubuntu-dev-offsite</id>
+			<build>
+			<finalName>dvc</finalName>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat7-maven-plugin</artifactId>
+						<configuration>
+							<url>http://palmharbor.fallara.net:8080/manager/text</url>
+							<server>ubuntu-dev</server>
+							<path>/dvcdev</path>
+						</configuration>
+					</plugin>
+				</plugins>		
+			</build>
+		</profile>
 	</profiles>
 </project>
