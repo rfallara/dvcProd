@@ -47,7 +47,7 @@ public class GoogleSignInAuth extends HttpServlet {
      * This is the Client ID that you generated in the API Console.
      */
     //private static final String CLIENT_ID = clientSecrets.getWeb().getClientId();
-    private static final String CLIENT_ID = "1078652156481-cnabsdppfboi0cu74q1o3m98crk7gtpe.apps.googleusercontent.com";
+    private static final String CLIENT_ID = "624350122436-f3h0e16docp6p0ivhstiq5r7oi0m5rf1.apps.googleusercontent.com";
 
        
     /**

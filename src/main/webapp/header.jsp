@@ -5,7 +5,7 @@
     }
 </style>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="1078652156481-cnabsdppfboi0cu74q1o3m98crk7gtpe.apps.googleusercontent.com">
+<meta name="google-signin-client_id" content="624350122436-f3h0e16docp6p0ivhstiq5r7oi0m5rf1.apps.googleusercontent.com">
 <script src="js/googleAuth.js" type="text/javascript"></script>
 <div style="visibility: hidden">
     <span id="CSFRToken"><c:out value="${sessionScope.state}"></c:out></span>
