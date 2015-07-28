@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -32,6 +34,8 @@ import net.fallara.dvc.DvcLoggedInUser;
 @WebServlet("/GoogleAuth.do")
 public class GoogleAuth extends HttpServlet {
 
+
+	protected static Logger log = Logger.getLogger(GoogleAuth.class);
     private static final long serialVersionUID = 1L;
 
     /*
@@ -112,10 +116,13 @@ public class GoogleAuth extends HttpServlet {
 
 	// Only connect a user that is not already connected.
 	String tokenData = (String) request.getSession().getAttribute("token");
+	
 	if (tokenData != null) {
-	    response.setStatus(HttpServletResponse.SC_OK);
+		response.setStatus(HttpServletResponse.SC_OK);
 	    response.getWriter().print(GSON.toJson("Current user is already connected."));
 	    return;
+	} else {
+		log.debug("Token is null");
 	}
 	      // Ensure that this is no request forgery going on, and that the user
 	// sending us this connect request is the user that was supposed to.
@@ -150,6 +157,8 @@ public class GoogleAuth extends HttpServlet {
 	    String gplusEmail = idToken.getPayload().getEmail();
 	    String gplusHostedDomain = idToken.getPayload().getHostedDomain();
 	    tokenData = tokenResponse.toString();
+	    
+	    log.debug("Token data: Subject-"+gplusId + " Email-" + gplusEmail + " HostedDomain-" + gplusHostedDomain);
 
 	    //****This block uses the token to access a google service*****
 	    //try {

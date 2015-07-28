@@ -12,11 +12,15 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 /**
  * Servlet Filter implementation class AuthorizationFilter
  */
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
+	
+	protected static Logger log = Logger.getLogger(AuthorizationFilter.class);
 
     /**
      * Default constructor.
@@ -56,7 +60,7 @@ public class AuthorizationFilter implements Filter {
         }
 
         if (excludedPage == false && thisRequest.getSession().getAttribute("token") == null) {
-
+        	log.debug("User is not logged in, redirecting");
             thisResponse.sendRedirect("index.jsp");
         } else {
             chain.doFilter(request, response);
