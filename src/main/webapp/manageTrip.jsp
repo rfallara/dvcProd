@@ -8,8 +8,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
         <%@ include file="head-includes.jsp"%>
+        <script type="text/javascript" src="js/libs/tablesorter/jquery.tablesorter.js"></script>
+        <link rel="stylesheet" href="js/libs/tablesorter/blue/style.css" type="text/css" media="print, projection, screen" />
 
         <title>Manage Trips</title>
+        
+        <script type="text/javascript">
+        	$(document).ready(function() 
+        	    { 
+        	        $("#myTable").tablesorter(); 
+        	    } 
+        	); 
+        
+        </script>
+        
     </head>
 
     <body>
@@ -63,17 +75,17 @@
 
             <div id="all-trips" class="ui-widget">
                 <input type="button" value="Add Trip" id="createTrip"> <br>
-                <table class="ui-widget ui-widget-content">
-                    <thead class="ui-widget-header">
-                    <td>Booked</td>
-                    <td>Check-In</td>
-                    <td>Check-Out</td>
-                    <td>Owner</td>
-                    <td>Resort</td>
-                    <td>Room</td>
-                    <td>Notes</td>
-                    <td>Points</td>
-                    <td></td>
+                <table id="myTable" class="ui-widget ui-widget-content tablesorter">
+                    <thead>
+                    <th>Booked</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Owner</th>
+                    <th>Resort</th>
+                    <th>Room</th>
+                    <th>Notes</th>
+                    <th>Points</th>
+                    <th></th>
                     </thead>
                     <tbody>
                         <c:forEach var="myTrip" items="${sessionScope.tripArray}">

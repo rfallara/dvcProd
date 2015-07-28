@@ -136,6 +136,8 @@ $(".dateField").datepicker({
 $("#addTripButton").button({
 });
 
+
+
 $(".deleteTripButton").button({
 });
 
