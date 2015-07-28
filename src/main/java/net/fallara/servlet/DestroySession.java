@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 /**
  * Servlet implementation class DestroySession
  */
 @WebServlet("/DestroySession")
 public class DestroySession extends HttpServlet {
-
+	protected static Logger log = Logger.getLogger(DestroySession.class);
     private static final long serialVersionUID = 1L;
 
     /**
@@ -34,6 +36,7 @@ public class DestroySession extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.getSession().invalidate();
+	log.debug("Session detroyed");
     }
 
     /**
@@ -46,6 +49,7 @@ public class DestroySession extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.getSession().invalidate();
+	log.debug("Session detroyed");
     }
 
 }

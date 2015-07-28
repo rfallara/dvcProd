@@ -11,8 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,6 +30,8 @@ import net.fallara.dvc.DvcLoggedInUser;
  */
 @WebServlet("/BankPoints.do")
 public class BankPoints extends HttpServlet {
+	
+	protected static Logger log = Logger.getLogger(BankPoints.class);
 
     private static final long serialVersionUID = 1L;
     private static final Gson GSON = new Gson();
@@ -81,7 +82,7 @@ public class BankPoints extends HttpServlet {
                 response.getWriter().print(bankablePoints.size());
 
             } catch (Exception ex) {
-                Logger.getLogger(BankPoints.class.getName()).log(Level.SEVERE, null, ex);
+            	log.error("Error getting bankable points", ex);
             }
         }
 
@@ -101,7 +102,7 @@ public class BankPoints extends HttpServlet {
                         currentUser = GoogleSignInAuth.updateLoggedInUserPoints(dbm, currentUser);
                         request.getSession().setAttribute("loggedInUser", currentUser);
                     } catch (SQLException ex) {
-                        Logger.getLogger(ManageTrips.class.getName()).log(Level.SEVERE, null, ex);
+                    	log.error("Error marking points as banked", ex);
                     }
 
                     response.setStatus(HttpServletResponse.SC_OK);
@@ -112,7 +113,7 @@ public class BankPoints extends HttpServlet {
                 }
 
             } catch (Exception ex) {
-                Logger.getLogger(BankPoints.class.getName()).log(Level.SEVERE, null, ex);
+            	log.error("Error marking points as banked", ex);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.setContentType("text/plain");
                 response.getWriter().print("An error occured, points have not been properly banked.");

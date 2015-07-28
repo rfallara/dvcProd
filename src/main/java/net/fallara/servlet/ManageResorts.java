@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import net.fallara.db.DBManager;
 import net.fallara.db.DvcSqlOperations;
 import net.fallara.dvc.DvcLoggedInUser;
@@ -20,6 +22,8 @@ import net.fallara.dvc.Resort;
  */
 @WebServlet("/ManageResorts.do")
 public class ManageResorts extends HttpServlet {
+	
+	protected static Logger log = Logger.getLogger(ManageResorts.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -44,12 +48,13 @@ public class ManageResorts extends HttpServlet {
 
 	if (request.getParameter("deleteID") != null) {
 
-	    System.out.println("Delete resort requested");
+	    log.debug("Delete resort requested");
 
 	    try {
 		DvcSqlOperations.deleteResort(dbm, Integer.parseInt(request.getParameter("deleteID")), currentUser.getGplusEmail()  );
 	    } catch (Exception e) {
 		request.setAttribute("sqlError", e.getMessage());
+		log.error("Error during delete", e);
 	    }
 
 	}
@@ -58,7 +63,7 @@ public class ManageResorts extends HttpServlet {
 	    ArrayList<Resort> allResort = DvcSqlOperations.getAllResort(dbm);
 	    request.getSession().setAttribute("resortArray", allResort);
 	} catch (Exception e) {
-	    System.out.println(e.getMessage());
+		log.error("Error during getting resorts", e);
 	}
 
 	RequestDispatcher rd = request.getRequestDispatcher("/manageResort.jsp");

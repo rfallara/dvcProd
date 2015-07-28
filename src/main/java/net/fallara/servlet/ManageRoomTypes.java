@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import net.fallara.db.DBManager;
 import net.fallara.db.DvcSqlOperations;
 import net.fallara.dvc.DvcLoggedInUser;
@@ -20,7 +22,7 @@ import net.fallara.dvc.RoomType;
  */
 @WebServlet("/ManageRoomTypes.do")
 public class ManageRoomTypes extends HttpServlet {
-
+	protected static Logger log = Logger.getLogger(ManageRoomTypes.class);
     private static final long serialVersionUID = 1L;
 
     /**
@@ -44,11 +46,12 @@ public class ManageRoomTypes extends HttpServlet {
 
 	if (request.getParameter("deleteID") != null) {
 
-	    System.out.println("Delete room requested");
+	    log.debug("Delete room requested");
 
 	    try {
 		DvcSqlOperations.deleteRoomType(dbm, Integer.parseInt(request.getParameter("deleteID")), currentUser.getGplusEmail() );
 	    } catch (Exception e) {
+	    	log.error("Error during delete room type ", e);
 		request.setAttribute("sqlError", e.getMessage());
 	    }
 
@@ -58,7 +61,7 @@ public class ManageRoomTypes extends HttpServlet {
 	    ArrayList<RoomType> allRT = DvcSqlOperations.getAllRoomType(dbm);
 	    request.getSession().setAttribute("roomTypeArray", allRT);
 	} catch (Exception e) {
-	    System.out.println(e.getMessage());
+		log.error("Error getting all room types ", e);
 	}
 
 	RequestDispatcher rd = request.getRequestDispatcher("/manageRoomType.jsp");

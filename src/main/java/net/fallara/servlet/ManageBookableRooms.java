@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import net.fallara.db.DBManager;
 import net.fallara.db.DvcSqlOperations;
 import net.fallara.dvc.BookableRoom;
@@ -22,6 +24,8 @@ import net.fallara.dvc.RoomType;
  */
 @WebServlet("/ManageBookableRooms.do")
 public class ManageBookableRooms extends HttpServlet {
+	
+	protected static Logger log = Logger.getLogger(ManageBookableRooms.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -46,12 +50,13 @@ public class ManageBookableRooms extends HttpServlet {
 
 	if (request.getParameter("deleteID") != null) {
 
-	    System.out.println("Delete bookable room requested");
+	    log.debug("Delete bookable room requested");
 
 	    try {
 		DvcSqlOperations.deleteBookableRoom(dbm, Integer.parseInt(request.getParameter("deleteID")), currentUser.getGplusEmail());
 	    } catch (Exception e) {
 		request.setAttribute("sqlError", e.getMessage());
+		log.error("Error during delete", e);
 	    }
 
 	}
@@ -61,14 +66,14 @@ public class ManageBookableRooms extends HttpServlet {
 	    request.getSession().setAttribute("resortArray", allResort);
 
 	} catch (Exception e) {
-	    System.out.println(e.getMessage());
+	    log.error("Error during get resorts", e);
 	}
 
 	try {
 	    ArrayList<RoomType> allRT = DvcSqlOperations.getAllRoomType(dbm);
 	    request.getSession().setAttribute("roomTypeArray", allRT);
 	} catch (Exception e) {
-	    System.out.println(e.getMessage());
+		log.error("Error during get room types", e);
 	}
 
 	try {
@@ -77,7 +82,7 @@ public class ManageBookableRooms extends HttpServlet {
 	    request.getSession().setAttribute("bookableRoomArray", allBr);
 
 	} catch (Exception e) {
-	    System.out.println(e.getMessage());
+		log.error("Error during get bookable rooms", e);
 	}
 
 	RequestDispatcher rd = request.getRequestDispatcher("/manageBookableRoom.jsp");

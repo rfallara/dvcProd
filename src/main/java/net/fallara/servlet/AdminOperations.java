@@ -6,8 +6,6 @@
 package net.fallara.servlet;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +15,8 @@ import net.fallara.db.DBManager;
 import net.fallara.db.DvcSqlOperations;
 import net.fallara.dvc.DvcLoggedInUser;
 import static net.fallara.auth.GoogleSignInAuth.updateLoggedInUserPoints;
+import org.apache.log4j.Logger;
+
 
 /**
  *
@@ -25,6 +25,7 @@ import static net.fallara.auth.GoogleSignInAuth.updateLoggedInUserPoints;
 @WebServlet("/AdminOperations.do")
 public class AdminOperations extends HttpServlet {
 
+	protected static Logger log = Logger.getLogger(DBManager.class);
     /**
 	 * 
 	 */
@@ -76,7 +77,7 @@ public class AdminOperations extends HttpServlet {
 		    response.getWriter().print("OK");
 
 		} catch (Exception ex) {
-		    Logger.getLogger(AdminOperations.class.getName()).log(Level.SEVERE, null, ex);
+			log.error("Error during override user ", ex);
 		    response.setStatus(HttpServletResponse.SC_OK);
 		    response.setContentType("text/plain");
 		    response.getWriter().print("An error occured");

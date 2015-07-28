@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import net.fallara.auth.GoogleSignInAuth;
 import net.fallara.db.DBManager;
@@ -27,12 +27,15 @@ import net.fallara.dvc.DvcLoggedInUser;
 import net.fallara.dvc.DvcOwner;
 import net.fallara.dvc.Trip;
 
+
 /**
  * Servlet implementation class ManageTrips
  */
 @WebServlet("/ManageTrips.do")
 public class ManageTrips extends HttpServlet {
 
+	protected static Logger log = Logger.getLogger(ManageTrips.class);
+	
     private static final long serialVersionUID = 1L;
 
     /**
@@ -61,7 +64,7 @@ public class ManageTrips extends HttpServlet {
 	    request.getSession().setAttribute("bookableRoomArray", allBr);
 
 	} catch (Exception e) {
-	    System.out.println(e.getMessage());
+		log.error("Error getting bookable rooms ", e);
 	}
 
 	try {
@@ -70,12 +73,12 @@ public class ManageTrips extends HttpServlet {
 	    request.getSession().setAttribute("dvcOwnerArray", allDvcOwner);
 
 	} catch (Exception e) {
-	    System.out.println(e.getMessage());
+		log.error("Error getting dvc owners", e);
 	}
 
 	if (request.getParameter("deleteID") != null) {
 
-	    System.out.println("Delete trip requested");
+	    log.debug("Delete trip requested");
 
 	    try {
 		DvcSqlOperations.deleteTripRecord(dbm, Integer.parseInt(request.getParameter("deleteID"))
@@ -88,7 +91,7 @@ public class ManageTrips extends HttpServlet {
                 currentUser = GoogleSignInAuth.updateLoggedInUserPoints(dbm, currentUser);
                 request.getSession().setAttribute("loggedInUser", currentUser);
             } catch (SQLException ex) {
-                Logger.getLogger(ManageTrips.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL error", ex);
             }
 
 	}
@@ -97,7 +100,7 @@ public class ManageTrips extends HttpServlet {
 	    ArrayList<Trip> allTrip = DvcSqlOperations.getAllTrip(dbm);
 	    request.getSession().setAttribute("tripArray", allTrip);
 	} catch (Exception e) {
-	    System.out.println(e.getMessage());
+		log.error("Error getting all trip details", e);
 	}
 
 	RequestDispatcher rd = request.getRequestDispatcher("/manageTrip.jsp");
@@ -158,7 +161,7 @@ public class ManageTrips extends HttpServlet {
                             Integer.parseInt(request.getParameter("addPointsNeeded")), currentUser.getGplusEmail());
 		    request.setAttribute("createdTripDetails", createdTripDetails);
 		} catch (Exception e) {
-		    System.out.println(e.getMessage());
+			log.error("Error creating trip", e);
 		}
 	    }
             
@@ -166,7 +169,7 @@ public class ManageTrips extends HttpServlet {
                 currentUser = GoogleSignInAuth.updateLoggedInUserPoints(dbm, currentUser);
                 request.getSession().setAttribute("loggedInUser", currentUser);
             } catch (SQLException ex) {
-                Logger.getLogger(ManageTrips.class.getName()).log(Level.SEVERE, null, ex);
+            	log.error("SQL Error", ex);
             }
 	    this.doGet(request, response);
 	}
