@@ -1,5 +1,6 @@
 /**
- * 
+ *  GUIDES FROM GOOGLE https://developers.google.com/identity/sign-in/web/
+ *  https://console.developers.google.com/project/inner-geography-775/apiui/credential?clientType#
  */
 
 function onSignIn(googleUser){
