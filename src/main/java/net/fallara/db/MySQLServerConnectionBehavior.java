@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 public class MySQLServerConnectionBehavior
-	extends DBUserInfo
+extends DBUserInfo
 	implements ServerConnectionBehavior
 {
+	protected static Logger log = Logger.getLogger(MySQLServerConnectionBehavior.class);
+	
 	public MySQLServerConnectionBehavior()
 	{
 		super();
@@ -28,7 +32,7 @@ public class MySQLServerConnectionBehavior
 		}
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
 		{
-			System.out.println(e.getMessage());
+			log.error(e.getMessage());
 			return null;
 		}
 	}

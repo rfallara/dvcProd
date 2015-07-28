@@ -4,12 +4,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+
+import org.apache.log4j.Logger;
 /**
  * Application Lifecycle Listener implementation class DBManagerSetup
  *
  */
 @WebListener
 public class DBManagerSetup implements ServletContextListener {
+	protected static Logger log = Logger.getLogger(DBManagerSetup.class);
 
 	private DBManager dbm = null;
 
@@ -30,7 +33,7 @@ public class DBManagerSetup implements ServletContextListener {
         String host = sc.getInitParameter("dbhost-dvc");
         
         if (host == null) {
-        	System.out.println("dbhost-dvc not available must be prod so using web.xml value");
+        	log.debug("dbhost-dvc not available must be prod so using web.xml value");
         	host = sc.getInitParameter("dbhost");
         }
         
@@ -49,9 +52,9 @@ public class DBManagerSetup implements ServletContextListener {
             //add dbm to session context
             sc.setAttribute("dvcDBManager", dbm);
             
-            System.out.println("dvcDBManager created and added to context");
+            log.info("dvcDBManager created and added to context");
         } else {
-            System.out.println("DB connection details are incorrect in servlet context!");
+            log.error("DB connection details are incorrect in servlet context!");
         }
     }
 
@@ -68,7 +71,7 @@ public class DBManagerSetup implements ServletContextListener {
             }
         }
         dbm = null;
-        System.out.println("dvcDBManager has been destroyed.");
+        log.debug("dvcDBManager has been destroyed.");
     }
 
 }

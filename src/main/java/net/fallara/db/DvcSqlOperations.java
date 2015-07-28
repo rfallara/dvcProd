@@ -4,8 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import java.util.Date;
+
+import org.apache.log4j.Logger;
+
 import net.fallara.dvc.BookableRoom;
 import net.fallara.dvc.CreateTripResults;
 import net.fallara.dvc.DvcOwner;
@@ -14,6 +16,8 @@ import net.fallara.dvc.RoomType;
 import net.fallara.dvc.Trip;
 
 public class DvcSqlOperations {
+	
+	protected static Logger log = Logger.getLogger(DvcSqlOperations.class);
 
     public static int addRoomType(DBManager dbm, String roomType, int sleeps, String gplusEmail) throws Exception {
 
@@ -28,6 +32,7 @@ public class DvcSqlOperations {
 
 	    return newRtId;
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -44,6 +49,7 @@ public class DvcSqlOperations {
 		return false;
 	    }
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -68,6 +74,7 @@ public class DvcSqlOperations {
 		return null;
 	    }
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -94,6 +101,7 @@ public class DvcSqlOperations {
 	    }
 	    return x;
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
 
@@ -131,6 +139,7 @@ public class DvcSqlOperations {
 	    return newResortId;
 	    //return dbm.ExecuteNonQuery(qry);
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -147,6 +156,7 @@ public class DvcSqlOperations {
 		return false;
 	    }
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -170,6 +180,7 @@ public class DvcSqlOperations {
 		return null;
 	    }
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -198,6 +209,7 @@ public class DvcSqlOperations {
 
 	    return newBrId;
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -214,6 +226,7 @@ public class DvcSqlOperations {
 		return false;
 	    }
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -249,6 +262,7 @@ public class DvcSqlOperations {
 		return null;
 	    }
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
@@ -344,7 +358,7 @@ public class DvcSqlOperations {
 	String x = DvcQueries.getBankedActualPoints(actualPointsNeeded, newTrip.getCheckInDate(),
 		newTrip.getBookedDate());
 
-	System.out.println(x);
+	log.debug(x);
 
 	rsBankedActualPoints = dbm.ExecuteUpdateableResultSet(DvcQueries.getBankedActualPoints(actualPointsNeeded,
 		newTrip.getCheckInDate(), newTrip.getBookedDate()));
@@ -412,6 +426,7 @@ public class DvcSqlOperations {
 		    rsCreateTrip.close();
 		}
 	    }
+	    log.error("Error in SQL query", e);
 	    throw e;
 	}
 
@@ -459,16 +474,16 @@ public class DvcSqlOperations {
 	try {
 
 	    if (dbm.ExecuteNonQuery(DvcQueries.releasePersonalPoints(tripId))) {
-		System.out.println("Released Personal Points for trip ID " + tripId);
+		log.debug("Released Personal Points for trip ID " + tripId);
 	    } else {
-		System.out.println("ERROR during release personal points");
+		log.error("ERROR during release personal points");
 		return false;
 	    }
 
 	    if (dbm.ExecuteNonQuery(DvcQueries.releaseActualPoints(tripId))) {
-		System.out.println("Released Actual Points for trip ID " + tripId);
+		log.debug("Released Actual Points for trip ID " + tripId);
 	    } else {
-		System.out.println("ERROR during release actual points");
+		log.error("ERROR during release actual points");
 		return false;
 	    }
 
@@ -476,13 +491,14 @@ public class DvcSqlOperations {
 
 	    if (dbm.ExecuteNonQuery(qry)) {
 		addEventLogEntry(dbm, gplusEmail, "DELETE Trip: " + thisTrip);
-		System.out.println("DELETE TRIP ENTRY");
+		log.debug("DELETE TRIP ENTRY " + thisTrip);
 	    } else {
-		System.out.println("ERROR during DELETE TRIP ENTRY");
+		log.error("ERROR during DELETE TRIP ENTRY " + thisTrip);
 		return false;
 	    }
 
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
 
@@ -510,6 +526,7 @@ public class DvcSqlOperations {
 		return null;
 	    }
 	} catch (Exception e) {
+		log.error("Error in SQL query", e);
 	    throw e;
 	}
     }
