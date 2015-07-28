@@ -50,7 +50,7 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse thisResponse = (HttpServletResponse) response;
 
         Boolean excludedPage = false;
-        String[] excludeList = {"/index.jsp", "/GoogleAuth.do", "googleAuth.js", "dvc.css"};
+        String[] excludeList = {"/index.jsp", "/GoogleAuth.do", "googleAuth.js", "dvc.css", "GoogleSignInAuth.do"};
         String requestPath = thisRequest.getRequestURI();
 
         for (String ep : excludeList) {

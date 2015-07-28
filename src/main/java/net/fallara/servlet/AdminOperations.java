@@ -13,10 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static net.fallara.auth.GoogleAuth.updateLoggedInUserPoints;
 import net.fallara.db.DBManager;
 import net.fallara.db.DvcSqlOperations;
 import net.fallara.dvc.DvcLoggedInUser;
+import static net.fallara.auth.GoogleSignInAuth.updateLoggedInUserPoints;
 
 /**
  *

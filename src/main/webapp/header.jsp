@@ -4,7 +4,8 @@
         width: 150px;
     }
 </style>
-
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="1078652156481-cnabsdppfboi0cu74q1o3m98crk7gtpe.apps.googleusercontent.com">
 <script src="js/googleAuth.js" type="text/javascript"></script>
 <div style="visibility: hidden">
     <span id="CSFRToken"><c:out value="${sessionScope.state}"></c:out></span>
@@ -35,38 +36,30 @@
 			]
 		    </td>
 	    </c:if>    
-            <td align="right">
-                <div id="signinButton">
-                    <span class="g-signin"
-                          data-scope="https://www.googleapis.com/auth/userinfo.email"
-                          data-clientid="624350122436-f3h0e16docp6p0ivhstiq5r7oi0m5rf1.apps.googleusercontent.com"
-                          data-redirecturi="postmessage" data-accesstype="offline"
-                          data-prompt="login"
-                          data-cookiepolicy="single_host_origin"
-                          data-callback="signInCallback"> </span>
-                </div> 
-		<c:if test="${sessionScope.token != null}">
-		    <c:if test="${sessionScope.loggedInUser.accessLevel == 7}">
-			<input type="checkbox" id="enableOverrideUser"/>Override User:
-			<select id="overrideUser" disabled>
-			    <option value="0">---Select User---</option>
-			    <c:forEach var="user" items="${sessionScope.loggedInUser.allOwnerList}">
-				<option value="${user.ownerId}" >${user.ownerName}</option>
-			    </c:forEach>
-			</select>
-			<br>
-		    </c:if>
-		    <c:out value="${sessionScope.loggedInUser.dvcOwner.ownerName}"></c:out>
-			<br>
-			Available [ 
-			Banked:<c:out value="${sessionScope.loggedInUser.bankedPersonalPoints}"></c:out>&nbsp;
-		    Current:<c:out value="${sessionScope.loggedInUser.currentPersonalPoints}"></c:out>&nbsp;
-		    Borrow:<c:out value="${sessionScope.loggedInUser.borrowPersonalPoints}"></c:out>&nbsp;
-			]
-			<br>
-			<a href="javascript:Logout()">LOGOUT</a>
-		</c:if>
-	    </td>
+            <td align="right">  
+            	<div class="g-signin2" style="display: none;"></div>   	
+				<c:if test="${sessionScope.token != null}">
+				    <c:if test="${sessionScope.loggedInUser.accessLevel == 7}">
+					<input type="checkbox" id="enableOverrideUser"/>Override User:
+					<select id="overrideUser" disabled>
+					    <option value="0">---Select User---</option>
+					    <c:forEach var="user" items="${sessionScope.loggedInUser.allOwnerList}">
+						<option value="${user.ownerId}" >${user.ownerName}</option>
+					    </c:forEach>
+					</select>
+					<br>
+				    </c:if>
+				    <c:out value="${sessionScope.loggedInUser.dvcOwner.ownerName}"></c:out>
+					<br>
+					Available [ 
+					Banked:<c:out value="${sessionScope.loggedInUser.bankedPersonalPoints}"></c:out>&nbsp;
+				    Current:<c:out value="${sessionScope.loggedInUser.currentPersonalPoints}"></c:out>&nbsp;
+				    Borrow:<c:out value="${sessionScope.loggedInUser.borrowPersonalPoints}"></c:out>&nbsp;
+					]
+					<br>
+					<a href="javascript:Logout()">LOGOUT</a>
+				</c:if>
+		    </td>
         </tr>
     </table>
 </div>
@@ -75,7 +68,7 @@
     <script type="text/javascript">
 	$(function () {
 
-	    //$('#signinButton').hide();
+	    $('#g-signin2').hide();
 
 	    var mainMenuBar = $("#mainMenuBar");
 	    var menu = $("#menu");

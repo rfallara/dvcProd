@@ -20,6 +20,7 @@
             <div class="ui-widget-content" style="text-align: center;">
                 <H1>Welcome to the DVC Vacation Points Management System</H1>
                 <br>
+                <div class="g-signin2" data-onsuccess="onSignIn" align="center"></div>
             </div>
         </div>
     </body>

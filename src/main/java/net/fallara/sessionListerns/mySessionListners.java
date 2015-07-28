@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import org.apache.log4j.Logger;
+
 import net.fallara.db.DBManager;
 
 /**
@@ -17,7 +19,8 @@ import net.fallara.db.DBManager;
  */
 @WebListener
 public class mySessionListners implements HttpSessionListener {
-
+	
+	protected static Logger log = Logger.getLogger(mySessionListners.class);
     public int activeUsers;
 
     /**
@@ -38,18 +41,15 @@ public class mySessionListners implements HttpSessionListener {
     	String hnt = arg0.getSession().getServletContext().getInitParameter("dev-dvc");
     	
     	if (hnt != null){
-        	System.out.println("THIS IS A DEVELOPMENT ENVIRONMENT - adding tag " + hnt);
+        	log.info("THIS IS A DEVELOPMENT ENVIRONMENT - adding tag " + hnt);
         	arg0.getSession().setAttribute("headerNameTag", hnt);
         }
-    
-	    String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-	    
-	    
-		System.out.println("[" + timestamp + "] " + "A new session has been created - " + arg0.getSession().getId());
+
+    	log.debug("A new session has been created - " + arg0.getSession().getId());
 	
 		activeUsers++;
 	
-		System.out.println("Active user count = " + activeUsers);
+		log.debug("Active user count = " + activeUsers);
 	
 		arg0.getSession().setMaxInactiveInterval(20 * 60);
 		
@@ -70,13 +70,13 @@ public class mySessionListners implements HttpSessionListener {
     public void sessionDestroyed(HttpSessionEvent arg0) {
     
     	String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-		System.out.println("[" + timestamp + "] " + "A session has been detroyed - " + arg0.getSession().getId());
+    	log.debug("A session has been detroyed - " + arg0.getSession().getId());
 	
 		if (activeUsers > 0) {
 		    activeUsers--;
 		}
 	
-		System.out.println("Active user count = " + activeUsers);
+		log.debug("Active user count = " + activeUsers);
 	
 		if (activeUsers == 0) {
 		    System.out.println("[" + timestamp + "] " + "No more active sessions closing DB connection");

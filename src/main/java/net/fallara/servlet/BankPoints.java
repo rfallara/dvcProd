@@ -1,6 +1,7 @@
 package net.fallara.servlet;
 
 import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -19,8 +20,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.fallara.auth.GoogleAuth;
 
+import net.fallara.auth.GoogleSignInAuth;
 import net.fallara.db.DBManager;
 import net.fallara.db.DvcSqlOperations;
 import net.fallara.dvc.DvcLoggedInUser;
@@ -97,7 +98,7 @@ public class BankPoints extends HttpServlet {
                 if (countOfBanked == pointsToBank) {
                     try {
                         DvcLoggedInUser currentUser = (DvcLoggedInUser)request.getSession().getAttribute("loggedInUser");
-                        currentUser = GoogleAuth.updateLoggedInUserPoints(dbm, currentUser);
+                        currentUser = GoogleSignInAuth.updateLoggedInUserPoints(dbm, currentUser);
                         request.getSession().setAttribute("loggedInUser", currentUser);
                     } catch (SQLException ex) {
                         Logger.getLogger(ManageTrips.class.getName()).log(Level.SEVERE, null, ex);

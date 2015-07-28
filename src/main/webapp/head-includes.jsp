@@ -1,9 +1,9 @@
 <script	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
 <script	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
 
-<!-- BEGIN Pre-requisites Google Auth -->
+<!-- BEGIN Pre-requisites Google Auth
 <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer type="text/javascript"></script>
-<!-- END Pre-requisites Google Auth -->
+     END Pre-requisites Google Auth -->
 
 <!--
 <link href="jquery-ui.min.css" rel="stylesheet">
