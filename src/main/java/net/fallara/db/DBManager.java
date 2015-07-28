@@ -3,7 +3,11 @@ package net.fallara.db;
 import java.io.Serializable;
 import java.sql.*;
 
+import org.apache.log4j.Logger;
+
 public class DBManager implements Serializable {
+	
+	protected static Logger log = Logger.getLogger(DBManager.class);
 
     /**
      *
@@ -39,6 +43,7 @@ public class DBManager implements Serializable {
             }
             cn = scb.getConnection();
         } catch (Exception e) {
+        	log.error("Error opening DB connection", e);
             System.out.println(e.getMessage());
             return false;
         }
@@ -56,8 +61,8 @@ public class DBManager implements Serializable {
             if (!keepAlive) {
                 cn = null;
             }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception e) {
+        	log.error("Error closing DB connection", e);
             return false;
         }
         return true;
@@ -72,7 +77,7 @@ public class DBManager implements Serializable {
         if (!this.isConnected()) {
             if (!this.openConnection()) {
                 //massive failure, log it
-                System.out.println("Could not connect to the database...");
+            	log.error("Could not connect to database");
             }
         }
     }
@@ -83,16 +88,14 @@ public class DBManager implements Serializable {
             try (Statement st = cn.createStatement()) {
                 int i = st.executeUpdate(query);
                 if (i == -1) {
-                    System.out.println("ERROR occured during SQL EXECUTE");
+                	log.error("Error occured during SQL EXECUTE");
                     return false;
                 } else {
-                    System.out.println("Executed qry on " + i + " records.");
+                	log.info("Executed qry on " + i + " records.");
                 }
             }
         } catch (Exception e) {
             throw e;
-            //e.printStackTrace();
-            //return false;
         }
         return true;
     }
@@ -103,17 +106,15 @@ public class DBManager implements Serializable {
             try (Statement st = cn.createStatement()) {
                 int i = st.executeUpdate(query);
                 if (i == -1) {
-                    System.out.println("ERROR occured during SQL EXECUTE");
+                    log.error("ERROR occured during SQL EXECUTE");
                     return i;
                 } else {
-                    System.out.println("Executed qry on " + i + " records.");
+                    log.info("Executed qry on " + i + " records.");
                 }
 		return i;
             }
         } catch (Exception e) {
             throw e;
-            //e.printStackTrace();
-            //return false;
         }
     }
 

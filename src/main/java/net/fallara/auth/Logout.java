@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import net.fallara.db.DBManager;
 import net.fallara.db.DvcSqlOperations;
 import net.fallara.dvc.DvcLoggedInUser;
@@ -18,6 +20,8 @@ import net.fallara.dvc.DvcLoggedInUser;
 @WebServlet("/Logout.do")
 public class Logout extends HttpServlet {
 
+	
+	protected static Logger log = Logger.getLogger(Logout.class);
     private static final long serialVersionUID = 1L;
 
     /**
@@ -43,8 +47,9 @@ public class Logout extends HttpServlet {
     	try {
 			DvcSqlOperations.addEventLogEntry(dbm, myUser.getGplusEmail(), "User Logged Out.");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Error adding to event log", e);
 		}
+    	log.debug("User Logged Out." + myUser.getGplusEmail());
         request.getSession().invalidate();
         response.sendRedirect("index.jsp");
     }
