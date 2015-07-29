@@ -32,45 +32,45 @@ public class mySessionListners implements HttpSessionListener {
     }
 
     /**
-     * @param arg0
+     * @param myHttpSessionEvent
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
     @Override
-    public void sessionCreated(HttpSessionEvent arg0) {
+    public void sessionCreated(HttpSessionEvent myHttpSessionEvent) {
     	
-    	String hnt = arg0.getSession().getServletContext().getInitParameter("dev-dvc");
+    	String hnt = myHttpSessionEvent.getSession().getServletContext().getInitParameter("dev-dvc");
     	
     	if (hnt != null){
         	log.info("THIS IS A DEVELOPMENT ENVIRONMENT - adding tag " + hnt);
-        	arg0.getSession().setAttribute("headerNameTag", hnt);
+        	myHttpSessionEvent.getSession().setAttribute("headerNameTag", hnt);
         }
 
-    	log.debug("A new session has been created - " + arg0.getSession().getId());
+    	log.debug("A new session has been created - " + myHttpSessionEvent.getSession().getId());
 	
 		activeUsers++;
 	
 		log.debug("Active user count = " + activeUsers);
 	
-		arg0.getSession().setMaxInactiveInterval(20 * 60);
+		myHttpSessionEvent.getSession().setMaxInactiveInterval(20 * 60);
 		
 		
 		
 		String state = new BigInteger(130, new SecureRandom()).toString(32);
-	        arg0.getSession().setAttribute("state", state);
+	        myHttpSessionEvent.getSession().setAttribute("state", state);
 		
 		//System.out.println(arg0.getSession().getAttribute("state"));
 
     }
 
     /**
-     * @param arg0
+     * @param myHttpSessionEvent
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
     @Override
-    public void sessionDestroyed(HttpSessionEvent arg0) {
+    public void sessionDestroyed(HttpSessionEvent myHttpSessionEvent) {
     
     	String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    	log.debug("A session has been detroyed - " + arg0.getSession().getId());
+    	log.debug("A session has been detroyed - " + myHttpSessionEvent.getSession().getId());
 	
 		if (activeUsers > 0) {
 		    activeUsers--;
@@ -80,7 +80,7 @@ public class mySessionListners implements HttpSessionListener {
 	
 		if (activeUsers == 0) {
 		    System.out.println("[" + timestamp + "] " + "No more active sessions closing DB connection");
-		    DBManager dbm = (DBManager) arg0.getSession().getServletContext().getAttribute("dvcDBManager");
+		    DBManager dbm = (DBManager) myHttpSessionEvent.getSession().getServletContext().getAttribute("dvcDBManager");
 		    dbm.closeConnection(false);
 		}
 
