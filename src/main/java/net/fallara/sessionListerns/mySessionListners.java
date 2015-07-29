@@ -2,8 +2,6 @@ package net.fallara.sessionListerns;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
@@ -69,7 +67,6 @@ public class mySessionListners implements HttpSessionListener {
     @Override
     public void sessionDestroyed(HttpSessionEvent myHttpSessionEvent) {
     
-    	String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
     	log.debug("A session has been detroyed - " + myHttpSessionEvent.getSession().getId());
 	
 		if (activeUsers > 0) {
@@ -79,7 +76,7 @@ public class mySessionListners implements HttpSessionListener {
 		log.debug("Active user count = " + activeUsers);
 	
 		if (activeUsers == 0) {
-		    System.out.println("[" + timestamp + "] " + "No more active sessions closing DB connection");
+		    log.debug("No more active sessions closing DB connection");
 		    DBManager dbm = (DBManager) myHttpSessionEvent.getSession().getServletContext().getAttribute("dvcDBManager");
 		    dbm.closeConnection(false);
 		}
