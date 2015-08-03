@@ -1,0 +1,6 @@
+8-2-15  - Plan to redesign interface
+            Change to AngularJS for view
+            Make model provide data back in JSON format
+            Controller will take it JSON data and deliver it to view AngularJS
+            Research using jQwidgets http://www.jqwidgets.com/ for view
+            Research using Bootstrap http://getbootstrap.com/ as another possibilty
