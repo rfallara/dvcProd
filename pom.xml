@@ -122,7 +122,7 @@
 						<groupId>org.apache.tomcat.maven</groupId>
 						<artifactId>tomcat7-maven-plugin</artifactId>
 						<configuration>
-							<url>http://192.168.1.173:8080/manager/text</url>
+							<url>http://172.16.10.65:8080/manager/text</url>
 							<server>ubuntu-dev</server>
 							<path>/dvcdev</path>
 						</configuration>
@@ -140,7 +140,7 @@
 						<groupId>org.apache.tomcat.maven</groupId>
 						<artifactId>tomcat7-maven-plugin</artifactId>
 						<configuration>
-							<url>http://palmharbor.fallara.net:8080/manager/text</url>
+							<url>http://ubuntu.fallara.net:8080/manager/text</url>
 							<server>ubuntu-dev</server>
 							<path>/dvcdev</path>
 						</configuration>
