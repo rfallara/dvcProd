@@ -35,6 +35,8 @@ public class DBManagerSetup implements ServletContextListener {
         if (host == null) {
         	log.debug("dbhost-dvc not available must be prod so using web.xml value");
         	host = sc.getInitParameter("dbhost");
+        } else {
+        	log.debug("development DB value found in context.xml, using db at " + host);
         }
         
         
