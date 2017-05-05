@@ -455,7 +455,7 @@ public class DvcSqlOperations {
 	}
 
 	Trip logTrip = DvcSqlOperations.getTrip(dbm, newTripId);
-	addEventLogEntry(dbm, gplusEmail, "ADDED Trip: " + logTrip);
+	addEventLogEntry(dbm, gplusEmail, "ADDED Trip: " + logTrip.toString().replace("'", "''"));
 
 	String pointAllocationLog = String.format(
 		"TRIP %s points allocations [Personal Banked-%s Current-%s Borrow-%s] "
