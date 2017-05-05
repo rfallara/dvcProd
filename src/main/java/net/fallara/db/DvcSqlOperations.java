@@ -490,7 +490,7 @@ public class DvcSqlOperations {
 	    String qry = String.format("DELETE from Trips WHERE Trip_ID = '%s'", tripId);
 
 	    if (dbm.ExecuteNonQuery(qry)) {
-		addEventLogEntry(dbm, gplusEmail, "DELETE Trip: " + thisTrip);
+		addEventLogEntry(dbm, gplusEmail, "DELETE Trip: " + thisTrip.toString().replace("'", "''"));
 		log.debug("DELETE TRIP ENTRY " + thisTrip);
 	    } else {
 		log.error("ERROR during DELETE TRIP ENTRY " + thisTrip);
