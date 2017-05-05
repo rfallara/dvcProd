@@ -162,6 +162,9 @@ public class DvcQueries {
     public static String allocateNewTrip(Trip newTrip) {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+	//Escape apostrophe in notes field
+	newTrip.setNotes(newTrip.getNotes().replace("'", "''"));
+
 	return String.format("INSERT INTO Trips "
 		+ "(Booked_Date, CheckIn_Date, CheckOut_Date, BR_ID, Owner_ID, Notes, Points_Needed) "
 		+ "Values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", sdf.
