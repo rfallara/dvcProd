@@ -88,65 +88,7 @@
 			<version>1.20.0</version>
 		</dependency>
 	</dependencies>
-	<profiles>
-		<profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when 
-				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app 
-				will need. -->
-			<!-- By default that is to put the resulting archive into the 'webapps' 
-				folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-			<id>openshift</id>
-			<build>
-				<finalName>dvc</finalName>
-				<plugins>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
-						<configuration>
-							<outputDirectory>webapps</outputDirectory>
-							<warName>ROOT</warName>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>ubuntu-dev</id>
-			<build>
-			<finalName>dvc</finalName>
-				<plugins>
-
-					<plugin>
-						<groupId>org.apache.tomcat.maven</groupId>
-						<artifactId>tomcat7-maven-plugin</artifactId>
-						<configuration>
-							<url>http://172.16.10.65:8080/manager/text</url>
-							<server>ubuntu-dev</server>
-							<path>/dvcdev</path>
-						</configuration>
-					</plugin>
-				</plugins>		
-			</build>
-		</profile>
-		<profile>
-			<id>ubuntu-dev-offsite</id>
-			<build>
-			<finalName>dvc</finalName>
-				<plugins>
-
-					<plugin>
-						<groupId>org.apache.tomcat.maven</groupId>
-						<artifactId>tomcat7-maven-plugin</artifactId>
-						<configuration>
-							<url>http://ubuntu.fallara.net:8080/manager/text</url>
-							<server>ubuntu-dev</server>
-							<path>/dvcdev</path>
-						</configuration>
-					</plugin>
-				</plugins>		
-			</build>
-		</profile>
-	</profiles>
+	<build>
+		<finalName>ROOT</finalName>
+	</build>
 </project>
