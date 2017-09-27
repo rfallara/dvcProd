@@ -18,6 +18,6 @@
   </context-param>
   <context-param>
     <param-name>dbhost</param-name>
-    <param-value>127.5.60.2</param-value>
+    <param-value>mysql</param-value>
   </context-param>
 </web-app>
