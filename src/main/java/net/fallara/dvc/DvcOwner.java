@@ -1,6 +1,8 @@
 package net.fallara.dvc;
 
-public class DvcOwner {
+import java.io.Serializable;
+
+public class DvcOwner implements Serializable {
 
     private int ownerId;
     private String ownerName;

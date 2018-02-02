@@ -5,13 +5,14 @@
  */
 package net.fallara.dvc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author rofallar
  */
-public class DvcLoggedInUser {
+public class DvcLoggedInUser implements Serializable {
 
     private String gplusId;
     private String gplusEmail;

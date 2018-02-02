@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 /**
  * Servlet implementation class DestroySession
  */
-@WebServlet("/DestroySession")
+//@WebServlet(urlPatterns = {"/DestroySession"})
 public class DestroySession extends HttpServlet {
 	protected static Logger log = Logger.getLogger(DestroySession.class);
     private static final long serialVersionUID = 1L;

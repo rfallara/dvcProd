@@ -1,8 +1,9 @@
 package net.fallara.dvc;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Trip {
+public class Trip implements Serializable{
 
     private int tripId;
     private Date bookedDate;

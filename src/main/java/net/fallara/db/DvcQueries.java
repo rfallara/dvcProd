@@ -6,29 +6,29 @@ import java.util.Date;
 
 import net.fallara.dvc.Trip;
 
-public class DvcQueries {
+class DvcQueries {
 
-    public static String getTripDetails() {
+    static String getTripDetails() {
 	return "SELECT * from tripDetails";
     }
 
-    public static String getRoomTypes() {
+    static String getRoomTypes() {
 	return "SELECT * from Room_Type";
     }
 
-    public static String getResorts() {
+    static String getResorts() {
 	return "SELECT * from Resort";
     }
 
-    public static String getBookableRooms() {
+    static String getBookableRooms() {
 	return "SELECT * from bookableRooms";
     }
 
-    public static String getOwners() {
+    static String getOwners() {
 	return "SELECT * from Owner";
     }
 
-    public static String getBankedPersonalPoints(int pointsNeeded, int ownerId,
+    static String getBankedPersonalPoints(int pointsNeeded, int ownerId,
 	    Date checkIn) {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -45,7 +45,7 @@ public class DvcQueries {
 		+ " LIMIT %s", previousUseYear, ownerId, pointsNeeded);
     }
 
-    public static String getCurrentPersonalPoints(int pointsNeeded, int ownerId,
+    static String getCurrentPersonalPoints(int pointsNeeded, int ownerId,
 	    Date checkIn) {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,7 +65,7 @@ public class DvcQueries {
 		pointsNeeded);
     }
 
-    public static String getBorrowPersonalPoints(int pointsNeeded, int ownerId,
+    static String getBorrowPersonalPoints(int pointsNeeded, int ownerId,
 	    Date checkIn) {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -84,7 +84,7 @@ public class DvcQueries {
 		pointsNeeded);
     }
 
-    public static String getBankedActualPoints(int pointsNeeded, Date checkIn,
+    static String getBankedActualPoints(int pointsNeeded, Date checkIn,
 	    Date booked) {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -108,7 +108,7 @@ public class DvcQueries {
 		pointsNeeded);
     }
 
-    public static String getCurrentActualPoints(int pointsNeeded, Date checkIn,
+    static String getCurrentActualPoints(int pointsNeeded, Date checkIn,
 	    Date booked) {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Calendar c = Calendar.getInstance();
@@ -129,7 +129,7 @@ public class DvcQueries {
 		pointsNeeded);
     }
 
-    public static String getBorrowActualPoints(int pointsNeeded, Date checkIn) {
+    static String getBorrowActualPoints(int pointsNeeded, Date checkIn) {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Calendar c = Calendar.getInstance();
 	c.setTime(checkIn); // set c to checkIn date
@@ -145,21 +145,21 @@ public class DvcQueries {
 		+ " LIMIT %s", nextUseYear, currentUseYear, pointsNeeded);
     }
 
-    public static String allocatePersonalPoint(int personalPointId, int tripId) {
+    static String allocatePersonalPoint(int personalPointId, int tripId) {
 	return String.format("UPDATE Personal_Points"
 		+ " SET Trip_ID = '%s'"
 		+ " WHERE PP_ID = '%s' AND Trip_ID is null", tripId,
 		personalPointId);
     }
 
-    public static String allocateActualPoint(int actualPointId, int tripId) {
+    static String allocateActualPoint(int actualPointId, int tripId) {
 	return String.format("UPDATE Actual_Points"
 		+ " SET Trip_ID = '%s'"
 		+ " WHERE AP_ID = '%s' AND Trip_ID is null", tripId,
 		actualPointId);
     }
 
-    public static String allocateNewTrip(Trip newTrip) {
+    static String allocateNewTrip(Trip newTrip) {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	//Escape apostrophe in notes field
@@ -175,21 +175,21 @@ public class DvcQueries {
 	);
     }
 
-    public static String releasePersonalPoints(int tripId) {
+    static String releasePersonalPoints(int tripId) {
 
 	return String.format("UPDATE Personal_Points"
 		+ " SET Trip_ID = null"
 		+ " WHERE Trip_ID = '%s'", tripId);
     }
 
-    public static String releaseActualPoints(int tripId) {
+    static String releaseActualPoints(int tripId) {
 
 	return String.format("UPDATE Actual_Points"
 		+ " SET Trip_ID = null"
 		+ " WHERE Trip_ID = '%s'", tripId);
     }
 
-    public static String findBankablePoints(Date bankDate) {
+    static String findBankablePoints(Date bankDate) {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Calendar c = Calendar.getInstance();
@@ -208,7 +208,7 @@ public class DvcQueries {
 
     }
 
-    public static String markPointsAsBanked(Date bankDate, int countOfPoints) {
+    static String markPointsAsBanked(Date bankDate, int countOfPoints) {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Calendar c = Calendar.getInstance();
@@ -235,7 +235,7 @@ public class DvcQueries {
      * [banked, current, borrow]
      * @return
      */
-    public static String getOwnerPersonalPointCount(Date qryDate, int ownerId,
+    static String getOwnerPersonalPointCount(Date qryDate, int ownerId,
 	    String pointType) {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Calendar c = Calendar.getInstance();
@@ -278,7 +278,7 @@ public class DvcQueries {
      * [banked, current, current-banked, borrow]
      * @return
      */
-    public static String getActualPointCount(Date qryDate, String pointType) {
+    static String getActualPointCount(Date qryDate, String pointType) {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Calendar c = Calendar.getInstance();
 	c.setTime(qryDate);
@@ -324,7 +324,7 @@ public class DvcQueries {
 	}
     }
 
-    public static String getOwnerByEmail(String ownerEmail) {
+    static String getOwnerByEmail(String ownerEmail) {
 	return String.format("SELECT Owner.Owner_ID, Owner.Owner"
 		+ " FROM Owner "
 		+ " JOIN Owner_Email "
@@ -333,7 +333,7 @@ public class DvcQueries {
 		ownerEmail);
     }
 
-    public static String getAccessLevelByEmail(String emailAddress) {
+    static String getAccessLevelByEmail(String emailAddress) {
 	return String.format(
 		"SELECT Access_Level FROM Owner_Email "
 		+ "WHERE Owner_Email = '%s'",
@@ -341,8 +341,8 @@ public class DvcQueries {
 	);
     }
 
-    public static String insertEventLog(String gplusEmail, String eventDesc) {
-	return String.format("INSERT INTO dvc.Event_Log (GPlus_ID, Event_Desc)"
+    static String insertEventLog(String gplusEmail, String eventDesc) {
+	return String.format("INSERT INTO Event_Log (GPlus_ID, Event_Desc)"
 		+ "VALUES('%s','%s')", gplusEmail, eventDesc);
     }
 

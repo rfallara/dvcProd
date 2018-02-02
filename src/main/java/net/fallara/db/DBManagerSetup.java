@@ -5,14 +5,15 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 /**
  * Application Lifecycle Listener implementation class DBManagerSetup
  *
  */
-@WebListener
+//@WebListener
 public class DBManagerSetup implements ServletContextListener {
-	protected static Logger log = Logger.getLogger(DBManagerSetup.class);
+	protected static Logger log = Logger.getLogger(DBManagerSetup.class.getName());
 
 	private DBManager dbm = null;
 
@@ -25,20 +26,25 @@ public class DBManagerSetup implements ServletContextListener {
 
         ServletContext sc = sce.getServletContext();
 
+        String uid = System.getProperty("db-user");
+        String pwd = System.getProperty("db-password");
+        String cat = System.getProperty("db-name");;
+        String host = System.getProperty("db-server");
+
         //get db con info from context init params
-        String uid = sc.getInitParameter("dbuserid");
+        /*String uid = sc.getInitParameter("dbuserid");
         String pwd = sc.getInitParameter("dbuserpwd");
         String cat = sc.getInitParameter("dbinitcat");
         
         String host = sc.getInitParameter("dbhost-dvc");
-        
+
         if (host == null) {
-        	log.debug("dbhost-dvc not available must be prod so using web.xml value");
+        	log.info("dbhost-dvc not available must be prod so using web.xml value");
         	host = sc.getInitParameter("dbhost");
         } else {
-        	log.debug("development DB value found in context.xml, using db at " + host);
+        	log.info("development DB value found in context.xml, using db at " + host);
         }
-        
+        */
         
         System.out.println("Current DB host - " + host);
 
@@ -51,12 +57,12 @@ public class DBManagerSetup implements ServletContextListener {
             //create the manager
             dbm = new DBManager(scb);
 
-            //add dbm to session context
+            //add dbm to servlet context
             sc.setAttribute("dvcDBManager", dbm);
             
             log.info("dvcDBManager created and added to context");
         } else {
-            log.error("DB connection details are incorrect in servlet context!");
+            log.warning("DB connection details are incorrect in servlet context!");
         }
     }
 
@@ -73,7 +79,7 @@ public class DBManagerSetup implements ServletContextListener {
             }
         }
         dbm = null;
-        log.debug("dvcDBManager has been destroyed.");
+        log.info("dvcDBManager has been destroyed.");
     }
 
 }

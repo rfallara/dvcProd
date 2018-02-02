@@ -1,6 +1,8 @@
 package net.fallara.dvc;
 
-public class Resort {
+import java.io.Serializable;
+
+public class Resort implements Serializable {
 
     private int resortId;
     private String resortName;

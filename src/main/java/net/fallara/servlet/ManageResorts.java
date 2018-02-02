@@ -20,7 +20,7 @@ import net.fallara.dvc.Resort;
 /**
  * Servlet implementation class ManageResorts
  */
-@WebServlet("/ManageResorts.do")
+//@WebServlet(urlPatterns = {"/ManageResorts.do"})
 public class ManageResorts extends HttpServlet {
 	
 	protected static Logger log = Logger.getLogger(ManageResorts.class);

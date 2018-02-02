@@ -1,6 +1,8 @@
 package net.fallara.dvc;
 
-public class RoomType {
+import java.io.Serializable;
+
+public class RoomType implements Serializable{
 
     private int rtId;
     private String roomTypeDesc;

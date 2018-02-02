@@ -3,11 +3,12 @@ package net.fallara.db;
 import java.io.Serializable;
 import java.sql.*;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 public class DBManager implements Serializable {
 	
-	protected static Logger log = Logger.getLogger(DBManager.class);
+	protected static Logger log = Logger.getLogger(DBManager.class.getName());
 
     /**
      *
@@ -41,9 +42,11 @@ public class DBManager implements Serializable {
             if (cn != null) {
                 closeConnection(false);
             }
+            log.info("opening db connection");
             cn = scb.getConnection();
+            log.info("db connection open complete");
         } catch (Exception e) {
-        	log.error("Error opening DB connection", e);
+        	log.warning("Error opening DB connection " + e.toString());
             System.out.println(e.getMessage());
             return false;
         }
@@ -62,7 +65,7 @@ public class DBManager implements Serializable {
                 cn = null;
             }
         } catch (Exception e) {
-        	log.error("Error closing DB connection", e);
+        	log.warning("Error closing DB connection " + e.toString());
             return false;
         }
         return true;
@@ -77,7 +80,7 @@ public class DBManager implements Serializable {
         if (!this.isConnected()) {
             if (!this.openConnection()) {
                 //massive failure, log it
-            	log.error("Could not connect to database");
+            	log.warning("Could not connect to database");
             }
         }
     }
@@ -88,7 +91,7 @@ public class DBManager implements Serializable {
             try (Statement st = cn.createStatement()) {
                 int i = st.executeUpdate(query);
                 if (i == -1) {
-                	log.error("Error occured during SQL EXECUTE");
+                	log.warning("Error occured during SQL EXECUTE");
                     return false;
                 } else {
                 	log.info("Executed qry on " + i + " records.");
@@ -106,7 +109,7 @@ public class DBManager implements Serializable {
             try (Statement st = cn.createStatement()) {
                 int i = st.executeUpdate(query);
                 if (i == -1) {
-                    log.error("ERROR occured during SQL EXECUTE");
+                    log.warning("ERROR occured during SQL EXECUTE");
                     return i;
                 } else {
                     log.info("Executed qry on " + i + " records.");

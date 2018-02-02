@@ -4,6 +4,96 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <servlet-name>GoogleSignInAuth</servlet-name>
+    <servlet-class>net.fallara.auth.GoogleSignInAuth</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GoogleSignInAuth</servlet-name>
+    <url-pattern>/GoogleSignInAuth.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminOperations</servlet-name>
+    <servlet-class>net.fallara.servlet.AdminOperations</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminOperations</servlet-name>
+    <url-pattern>/AdminOperations.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>BankPoints</servlet-name>
+    <servlet-class>net.fallara.servlet.BankPoints</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BankPoints</servlet-name>
+    <url-pattern>/BankPoints.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>DestorySession</servlet-name>
+    <servlet-class>net.fallara.servlet.DestroySession</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DestorySession</servlet-name>
+    <url-pattern>/DestroySession.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ManageBookableRooms</servlet-name>
+    <servlet-class>net.fallara.servlet.ManageBookableRooms</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManageBookableRooms</servlet-name>
+    <url-pattern>/ManageBookableRooms.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ManageResorts</servlet-name>
+    <servlet-class>net.fallara.servlet.ManageResorts</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManageResorts</servlet-name>
+    <url-pattern>/ManageResorts.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ManageRoomTypes</servlet-name>
+    <servlet-class>net.fallara.servlet.ManageRoomTypes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManageRoomTypes</servlet-name>
+    <url-pattern>/ManageRoomTypes.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ManageTrips</servlet-name>
+    <servlet-class>net.fallara.servlet.ManageTrips</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManageTrips</servlet-name>
+    <url-pattern>/ManageTrips.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>net.fallara.auth.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <listener>
+    <listener-class>net.fallara.db.DBManagerSetup</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>net.fallara.sessionListerns.mySessionListners</listener-class>
+  </listener>
+  
   <context-param>
     <param-name>dbuserid</param-name>
     <param-value>dvcuser</param-value>
@@ -20,4 +110,16 @@
     <param-name>dbhost</param-name>
     <param-value>mysql</param-value>
   </context-param>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>everything</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+
 </web-app>

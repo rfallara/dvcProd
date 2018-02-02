@@ -28,7 +28,7 @@ import net.fallara.dvc.DvcLoggedInUser;
 /**
  * Servlet implementation class BankPoints
  */
-@WebServlet("/BankPoints.do")
+//@WebServlet(urlPatterns = {"/BankPoints.do"})
 public class BankPoints extends HttpServlet {
 	
 	protected static Logger log = Logger.getLogger(BankPoints.class);
@@ -94,7 +94,7 @@ public class BankPoints extends HttpServlet {
                 Date bankedDate = sdf.parse(request.getParameter("bankDate"));
                 int pointsToBank = Integer.parseInt(request.getParameter("bankCount"));
                 int countOfBanked = DvcSqlOperations.markPointsAsBanked(dbm, bankedDate, pointsToBank);
-                Map<String, String> x = new HashMap<>();
+                Map<String, String> x = new HashMap();
 
                 if (countOfBanked == pointsToBank) {
                     try {

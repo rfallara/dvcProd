@@ -22,15 +22,15 @@ import net.fallara.db.DBManager;
 import net.fallara.db.DvcSqlOperations;
 import net.fallara.dvc.DvcLoggedInUser;
 
-import org.apache.log4j.Logger;
-
+//import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 /**
  * Servlet implementation class GoogleSignInAuth
  */
-@WebServlet("/GoogleSignInAuth.do")
+//@WebServlet("/GoogleSignInAuth.do")
 public class GoogleSignInAuth extends HttpServlet {
 	
-	protected static Logger log = Logger.getLogger(GoogleSignInAuth.class);
+	protected static Logger log = Logger.getLogger(GoogleSignInAuth.class.getName());
 	private static final long serialVersionUID = 1L;
 	
     /*
@@ -47,7 +47,8 @@ public class GoogleSignInAuth extends HttpServlet {
      * This is the Client ID that you generated in the API Console.
      */
     //private static final String CLIENT_ID = clientSecrets.getWeb().getClientId();
-    private static final String CLIENT_ID = "624350122436-f3h0e16docp6p0ivhstiq5r7oi0m5rf1.apps.googleusercontent.com";
+	private static final String CLIENT_ID = "352426068501-r1o358blf1hqnhvnh5olce4b5toasadj.apps.googleusercontent.com";
+    //private static final String CLIENT_ID = "624350122436-f3h0e16docp6p0ivhstiq5r7oi0m5rf1.apps.googleusercontent.com";
 
        
     /**
@@ -72,15 +73,15 @@ public class GoogleSignInAuth extends HttpServlet {
 		// Only connect a user that is not already connected.
 		String tokenData = (String) request.getSession().getAttribute("token");
 		if (tokenData != null) {
-			//log.debug("Token already exist in session no need to continue validation");
+			//log.info("Token already exist in session no need to continue validation");
 		    return;
 		} else {
-			log.debug("Token is null need to validate user");
+			log.info("Token is null need to validate user");
 		}
 		
 		
 		String idTokenData = (String) request.getParameter("idtoken");
-		log.debug(idTokenData);
+		log.info(idTokenData);
 		
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(TRANSPORT, JSON_FACTORY)
 	    .setAudience(Arrays.asList(CLIENT_ID))
@@ -93,9 +94,9 @@ public class GoogleSignInAuth extends HttpServlet {
 			idToken = verifier.verify(idTokenData);
 			if (idToken != null) {
 				Payload payload = idToken.getPayload();
-				log.debug("User hosted domain: " + payload.getHostedDomain());
-				log.debug("User ID: " + payload.getSubject());
-				log.debug("User email: " + payload.getEmail());
+				log.info("User hosted domain: " + payload.getHostedDomain());
+				log.info("User ID: " + payload.getSubject());
+				log.info("User email: " + payload.getEmail());
 				
 				String gplusId = payload.getSubject();
 			    String gplusEmail = payload.getEmail();
@@ -118,14 +119,14 @@ public class GoogleSignInAuth extends HttpServlet {
 				
 				
 			} else {
-				log.debug("Invalid ID token. idToken is null");
+				log.info("Invalid ID token. idToken is null");
 				request.getSession().setAttribute("token", null);
 			    request.getSession().setAttribute("gplusId", null);
 			    request.getSession().setAttribute("gplusEmail", null);
 			    request.getSession().setAttribute("gplusHostedDomain", null);
 			}
 		} catch (GeneralSecurityException e) {
-			log.error("Token validation error", e);
+			log.severe("Token validation error" + e.toString());
 			request.getSession().setAttribute("token", null);
 		    request.getSession().setAttribute("gplusId", null);
 		    request.getSession().setAttribute("gplusEmail", null);
@@ -163,8 +164,8 @@ public class GoogleSignInAuth extends HttpServlet {
 			
 				myUser = updateLoggedInUserPoints(dbm, myUser);
 			} catch (Exception ex) {
-				System.out.println("Error getting user access level");
-				System.out.println(ex.getMessage());
+				log.severe("Error getting user access level");
+				log.severe(ex.getMessage());
 			}
 
 			request.getSession().setAttribute("loggedInUser", myUser);

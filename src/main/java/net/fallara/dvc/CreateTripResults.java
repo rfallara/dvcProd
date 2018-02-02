@@ -1,6 +1,8 @@
 package net.fallara.dvc;
 
-public class CreateTripResults {
+import java.io.Serializable;
+
+public class CreateTripResults implements Serializable{
 
     private int newTripId;
     private int countBankedPersonalPoints;

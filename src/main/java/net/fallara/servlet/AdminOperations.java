@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  *
  * @author rofallar
  */
-@WebServlet("/AdminOperations.do")
+//@WebServlet(urlPatterns = {"/AdminOperations.do"})
 public class AdminOperations extends HttpServlet {
 
 	protected static Logger log = Logger.getLogger(DBManager.class);

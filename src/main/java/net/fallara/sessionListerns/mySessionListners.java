@@ -7,7 +7,8 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import net.fallara.db.DBManager;
 
@@ -15,10 +16,10 @@ import net.fallara.db.DBManager;
  * Application Lifecycle Listener implementation class mySessionListners
  *
  */
-@WebListener
+//@WebListener
 public class mySessionListners implements HttpSessionListener {
 	
-	protected static Logger log = Logger.getLogger(mySessionListners.class);
+	protected static Logger log = Logger.getLogger(mySessionListners.class.getName());
     public int activeUsers;
 
     /**
@@ -43,11 +44,11 @@ public class mySessionListners implements HttpSessionListener {
         	myHttpSessionEvent.getSession().setAttribute("headerNameTag", hnt);
         }
 
-    	log.debug("A new session has been created - " + myHttpSessionEvent.getSession().getId());
+    	log.info("A new session has been created - " + myHttpSessionEvent.getSession().getId());
 	
 		activeUsers++;
 	
-		log.debug("Active user count = " + activeUsers);
+		log.info("Active user count = " + activeUsers);
 	
 		myHttpSessionEvent.getSession().setMaxInactiveInterval(20 * 60);
 		
@@ -67,16 +68,16 @@ public class mySessionListners implements HttpSessionListener {
     @Override
     public void sessionDestroyed(HttpSessionEvent myHttpSessionEvent) {
     
-    	log.debug("A session has been detroyed - " + myHttpSessionEvent.getSession().getId());
+    	log.info("A session has been detroyed - " + myHttpSessionEvent.getSession().getId());
 	
 		if (activeUsers > 0) {
 		    activeUsers--;
 		}
 	
-		log.debug("Active user count = " + activeUsers);
+		log.info("Active user count = " + activeUsers);
 	
 		if (activeUsers == 0) {
-		    log.debug("No more active sessions closing DB connection");
+		    log.info("No more active sessions closing DB connection");
 		    DBManager dbm = (DBManager) myHttpSessionEvent.getSession().getServletContext().getAttribute("dvcDBManager");
 		    dbm.closeConnection(false);
 		}

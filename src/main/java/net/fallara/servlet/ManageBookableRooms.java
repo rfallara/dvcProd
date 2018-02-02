@@ -22,7 +22,7 @@ import net.fallara.dvc.RoomType;
 /**
  * Servlet implementation class ManageBookableRooms
  */
-@WebServlet("/ManageBookableRooms.do")
+//@WebServlet(urlPatterns = {"/ManageBookableRooms.do"})
 public class ManageBookableRooms extends HttpServlet {
 	
 	protected static Logger log = Logger.getLogger(ManageBookableRooms.class);

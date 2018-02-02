@@ -57,6 +57,9 @@ public class AuthorizationFilter implements Filter {
             if (requestPath.endsWith(ep)) {
                 excludedPage = true;
             }
+            if (requestPath.contains(ep)) {
+                excludedPage = true;
+            }
         }
 
         if (excludedPage == false && thisRequest.getSession().getAttribute("token") == null) {

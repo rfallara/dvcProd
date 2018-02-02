@@ -20,7 +20,7 @@ import net.fallara.dvc.RoomType;
 /**
  * Servlet implementation class RoomTypes
  */
-@WebServlet("/ManageRoomTypes.do")
+//@WebServlet(urlPatterns = {"/ManageRoomTypes.do"})
 public class ManageRoomTypes extends HttpServlet {
 	protected static Logger log = Logger.getLogger(ManageRoomTypes.class);
     private static final long serialVersionUID = 1L;

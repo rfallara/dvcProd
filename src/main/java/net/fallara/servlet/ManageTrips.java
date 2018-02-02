@@ -31,7 +31,7 @@ import net.fallara.dvc.Trip;
 /**
  * Servlet implementation class ManageTrips
  */
-@WebServlet("/ManageTrips.do")
+//@WebServlet(urlPatterns = {"/ManageTrips.do"})
 public class ManageTrips extends HttpServlet {
 
 	protected static Logger log = Logger.getLogger(ManageTrips.class);
