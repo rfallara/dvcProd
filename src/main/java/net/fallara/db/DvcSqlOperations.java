@@ -6,7 +6,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.fallara.dvc.BookableRoom;
 import net.fallara.dvc.CreateTripResults;
@@ -17,7 +19,8 @@ import net.fallara.dvc.Trip;
 
 public class DvcSqlOperations {
 	
-	protected static Logger log = Logger.getLogger(DvcSqlOperations.class);
+	protected static Logger log = Logger.getLogger(DvcSqlOperations.class.getName());
+
 
     public static int addRoomType(DBManager dbm, String roomType, int sleeps, String gplusEmail) throws Exception {
 
@@ -32,7 +35,7 @@ public class DvcSqlOperations {
 
 	    return newRtId;
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+        log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -49,7 +52,7 @@ public class DvcSqlOperations {
 		return false;
 	    }
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -74,7 +77,7 @@ public class DvcSqlOperations {
 		return null;
 	    }
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -101,7 +104,7 @@ public class DvcSqlOperations {
 	    }
 	    return x;
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
 
@@ -139,7 +142,7 @@ public class DvcSqlOperations {
 	    return newResortId;
 	    //return dbm.ExecuteNonQuery(qry);
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -156,7 +159,7 @@ public class DvcSqlOperations {
 		return false;
 	    }
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -180,7 +183,7 @@ public class DvcSqlOperations {
 		return null;
 	    }
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -209,7 +212,7 @@ public class DvcSqlOperations {
 
 	    return newBrId;
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -226,7 +229,7 @@ public class DvcSqlOperations {
 		return false;
 	    }
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -262,7 +265,7 @@ public class DvcSqlOperations {
 		return null;
 	    }
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }
@@ -358,7 +361,7 @@ public class DvcSqlOperations {
 	String x = DvcQueries.getBankedActualPoints(actualPointsNeeded, newTrip.getCheckInDate(),
 		newTrip.getBookedDate());
 
-	log.debug(x);
+	//log.debug(x);
 
 	rsBankedActualPoints = dbm.ExecuteUpdateableResultSet(DvcQueries.getBankedActualPoints(actualPointsNeeded,
 		newTrip.getCheckInDate(), newTrip.getBookedDate()));
@@ -426,7 +429,7 @@ public class DvcSqlOperations {
 		    rsCreateTrip.close();
 		}
 	    }
-	    log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
 
@@ -474,16 +477,16 @@ public class DvcSqlOperations {
 	try {
 
 	    if (dbm.ExecuteNonQuery(DvcQueries.releasePersonalPoints(tripId))) {
-		log.debug("Released Personal Points for trip ID " + tripId);
+		log.fine("Released Personal Points for trip ID " + tripId);
 	    } else {
-		log.error("ERROR during release personal points");
+		log.warning("ERROR during release personal points");
 		return false;
 	    }
 
 	    if (dbm.ExecuteNonQuery(DvcQueries.releaseActualPoints(tripId))) {
-		log.debug("Released Actual Points for trip ID " + tripId);
+		log.fine("Released Actual Points for trip ID " + tripId);
 	    } else {
-		log.error("ERROR during release actual points");
+		log.warning("ERROR during release actual points");
 		return false;
 	    }
 
@@ -491,14 +494,14 @@ public class DvcSqlOperations {
 
 	    if (dbm.ExecuteNonQuery(qry)) {
 		addEventLogEntry(dbm, gplusEmail, "DELETE Trip: " + thisTrip.toString().replace("'", "''"));
-		log.debug("DELETE TRIP ENTRY " + thisTrip);
+		log.fine("DELETE TRIP ENTRY " + thisTrip);
 	    } else {
-		log.error("ERROR during DELETE TRIP ENTRY " + thisTrip);
+		log.warning("ERROR during DELETE TRIP ENTRY " + thisTrip);
 		return false;
 	    }
 
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
 
@@ -526,7 +529,7 @@ public class DvcSqlOperations {
 		return null;
 	    }
 	} catch (Exception e) {
-		log.error("Error in SQL query", e);
+		log.warning("Error in SQL query " + e);
 	    throw e;
 	}
     }

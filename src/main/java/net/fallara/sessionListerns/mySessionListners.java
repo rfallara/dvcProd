@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 //import org.apache.log4j.Logger;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.LogManager;
 
 import net.fallara.db.DBManager;
 
@@ -36,7 +38,7 @@ public class mySessionListners implements HttpSessionListener {
      */
     @Override
     public void sessionCreated(HttpSessionEvent myHttpSessionEvent) {
-    	
+
     	String hnt = myHttpSessionEvent.getSession().getServletContext().getInitParameter("dev-dvc");
     	
     	if (hnt != null){
