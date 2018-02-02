@@ -10,7 +10,7 @@
     <property name="ae-cloudsql.cloudsql-database-url" value="jdbc:google:mysql://dvcpointsapp:us-central1:dvc/dvctest?user=dvcuser&amp;password=dvc123" />
     <property name="ae-cloudsql.local-database-url" value="jdbc:mysql://localhost/dvctest?&amp;user=dvcuser&amp;password=dvc123&amp;useSSL=false"/>
     <property name="db-server" value="35.224.69.151"/>
-    <property name="db-name" value="dvcnew"/>
+    <property name="db-name" value="dvc"/>
     <property name="db-user" value="dvcuser"/>
     <property name="db-password" value="dvc123"/>
   </system-properties>

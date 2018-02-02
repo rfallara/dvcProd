@@ -45,8 +45,7 @@ public class DBManagerSetup implements ServletContextListener {
         	log.info("development DB value found in context.xml, using db at " + host);
         }
         */
-        
-        System.out.println("Current DB host - " + host);
+        log.info("Current DB host - " + host);
 
         if (uid != null && pwd != null && cat != null && host != null) {
             //set the scb for mySQL
